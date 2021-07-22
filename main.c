@@ -1,6 +1,6 @@
 #include "philo.h"
 
-ft_strlen(char *str)
+int ft_strlen(char *str)
 {
 	int i;
 
@@ -10,10 +10,24 @@ ft_strlen(char *str)
 	return (i);
 }
 
+void	init_data(t_data *data)
+{
+	data->num_of_ph = 0;
+	data->time_to_die = 0;
+	data->time_to_eat = 0;
+	data->time_to_sleep = 0;
+	data->num_of_eat = -1;
+	data->someone_died = 0;
+	data->lock = NULL;
+	data->thread = NULL;
+	data->fork = NULL;
+}
+
 int	ft_error(char *error, t_data *data)
 {
 	write(2, "Error\n", 6);
-	write(2, error, ft_strlen(error));
+	if (error)
+		write(2, error, ft_strlen(error));
 	if (data)
 	{
 		if (data->thread)
@@ -31,9 +45,9 @@ int	ft_check_input(char **av)
 	int	i;
 
 	i = 1;
-	while (argv[i])
+	while (av[i])
 	{
-		if (!ft_isnbr(argv[i]) || ft_atoi(argv[i]) < 0)
+		if (!ft_isnum(av[i]) || ft_atoi(av[i]) < 1)
 			return (1);
 		i++;
 	}
@@ -45,13 +59,11 @@ int	main(int ac, char **av)
 	t_data	data;
 	int		i;
 
-	if ((ac != 5 || ac != 6) && ft_check_input(av))
+	if (!(ac == 5 || ac == 6) || ft_check_input(av))
 		return (ft_error("Wrong arguments\n", NULL));
-	if (ft_atoi(argv[1]) > HARD_CAP)
-		return (error_handler(TOO_MANY_THREADS, NULL));
-	init_data(&data);
-	if (!(data_setup(&data, argc, argv) && create_and_join_threads(&data)))
-		return (error_handler(errno, &data));
+	ft_init_data(&data);
+	if (!(ft_setdata(&data, ac, av) && create_and_join_threads(&data)))
+		return (ft_error(NULL, &data));
 	i = -1;
 	while (++i < data.num_of_philo)
 		pthread_mutex_destroy(&(data.fork[i]));
