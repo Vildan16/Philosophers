@@ -62,7 +62,7 @@ int	main(int ac, char **av)
 	if (!(ac == 5 || ac == 6) || ft_check_input(av))
 		return (ft_error("Wrong arguments\n", NULL));
 	ft_init_data(&data);
-	if (!(ft_setdata(&data, ac, av) && create_and_join_threads(&data)))
+	if (!(ft_setdata(&data, ac, av) && ft_threads(&data)))
 		return (ft_error(NULL, &data));
 	i = -1;
 	while (++i < data.num_of_philo)

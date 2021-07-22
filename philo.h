@@ -34,6 +34,7 @@ int ft_strlen(char *str);
 int		ft_atoi(const char *nptr);
 int 	ft_isnum(char *num);
 int	ft_setdata(t_data *data, int ac, char **av);
+int	ft_threads(t_data *data);
 
 
 
