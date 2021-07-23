@@ -3,7 +3,7 @@
 int	ft_waitfork(void *content, t_data *data, int i)
 {
 	if (data->num_of_ph == 1)
-		return (ft_one_ph(content, data, i));
+		return (ft_one_ph(content, data, index));
 	while (!data->someone_died)
 	{
 		if (i % 2)
