@@ -1,13 +1,11 @@
-#include "philo.h"
+#include "../includes/philo.h"
 
 long	ft_time(void)
 {
-    static time_t		start_sec;
-	static suseconds_t	start_micro_sec;
+    static time_t		start_sec = 0;
+	static suseconds_t	start_micro_sec = 0;
 	struct timeval		time;
 
-    start_sec = 0;
-    start_micro_sec = 0;
 	gettimeofday(&time, NULL);
 	if (!start_sec)
 	{
@@ -17,20 +15,6 @@ long	ft_time(void)
 	return (((time.tv_sec - start_sec) * 1000)
 		+ (time.tv_usec - start_micro_sec) / 1000);
 }
-
-int	validate_user_input(char **argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[++i])
-	{
-		if (!ft_isnbr(argv[i]) || ft_atoi(argv[i]) < 0)
-			return (0);
-	}
-	return (1);
-}
-
 
 void	ft_printstatus(t_data *data, int i, char *message)
 {

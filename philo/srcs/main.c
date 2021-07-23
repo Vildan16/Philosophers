@@ -1,4 +1,4 @@
-#include "philo.h"
+#include "../includes/philo.h"
 
 int ft_strlen(char *str)
 {
@@ -10,7 +10,7 @@ int ft_strlen(char *str)
 	return (i);
 }
 
-void	init_data(t_data *data)
+void	ft_init_data(t_data *data)
 {
 	data->num_of_ph = 0;
 	data->time_to_die = 0;
@@ -25,9 +25,11 @@ void	init_data(t_data *data)
 
 int	ft_error(char *error, t_data *data)
 {
-	write(2, "Error\n", 6);
 	if (error)
+	{
+		write(2, "Error\n", 6);
 		write(2, error, ft_strlen(error));
+	}
 	if (data)
 	{
 		if (data->thread)
@@ -65,9 +67,9 @@ int	main(int ac, char **av)
 	if (!(ft_setdata(&data, ac, av) && ft_threads(&data)))
 		return (ft_error(NULL, &data));
 	i = -1;
-	while (++i < data.num_of_philo)
+	while (++i < data.num_of_ph)
 		pthread_mutex_destroy(&(data.fork[i]));
 	pthread_mutex_destroy(&(data.dead_mutex));
-	free_data(&data);
+	ft_error(NULL, &data);
 	return (0);
 }

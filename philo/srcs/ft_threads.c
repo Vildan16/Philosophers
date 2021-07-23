@@ -1,19 +1,18 @@
-# include "philo.h"
+#include "../includes/philo.h"
 
 int	ft_waitfork(void *content, t_data *data, int i)
 {
 	if (data->num_of_ph == 1)
-		return (ft_one_ph(content, data, index));
+		return (ft_one_ph(content, data, i));
 	while (!data->someone_died)
 	{
 		if (i % 2)
 			ft_lock_right(data, i);
 		else
-			lock_from_left_to_right(data, index);
-		if (is_dead(content))
-			return (death_handler(data, ((t_content *)content)->philo_id));
-		if (data->lock[index] == index
-			&& data->lock[(index + 1) % data->num_of_philo] == index)
+			ft_lock_left(data, i);
+		if (ft_isdead(content))
+			return (ft_death(data, ((t_content *)content)->philo_id));
+		if (data->lock[i] == i && data->lock[(i + 1) % data->num_of_ph] == i)
 			return (!(data->someone_died));
 		usleep(100);
 	}
@@ -27,8 +26,8 @@ void	*ft_life(void *content)
 	int			i;
 
 	i = ((t_content *)content)->philo_id;
-	times_to_eat = data->num_of_eat;
 	data = ((t_content *)content)->data;
+	times_to_eat = data->num_of_eat;
 	while (times_to_eat--)
 	{
 		if (!ft_waitfork(content, data, i))
@@ -47,7 +46,7 @@ void	*ft_life(void *content)
 	return (NULL);
 }
 
-t_content	*content_handler(int i, t_data *data)
+t_content	*ft_content(int i, t_data *data)
 {
 	t_content	*content;
 

@@ -2,11 +2,15 @@ NAME = philo
 HEADER_FILE = philo.h
 INC_DIR = ./includes/
 SRC_DIR = ./srcs/
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
+CC = clang
 SRC_FILES =			$(SRC_DIR)main.c \
-					$(SRC_DIR)ft_bmp_save.c \
-					$(SRC_DIR)ft_check_map.c \
-					$(SRC_DIR)ft_game_init.c 
+					$(SRC_DIR)ft_death.c \
+					$(SRC_DIR)ft_eat.c \
+					$(SRC_DIR)ft_isnum.c \
+					$(SRC_DIR)ft_printstatus.c \
+					$(SRC_DIR)ft_setdata.c \
+					$(SRC_DIR)ft_threads.c
 
 OBJS = $(SRC_FILES:.c=.o)
 
