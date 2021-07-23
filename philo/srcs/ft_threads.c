@@ -1,13 +1,13 @@
 # include "philo.h"
 
-int	ft_waitfork(void *content, t_data *data, int index)
+int	ft_waitfork(void *content, t_data *data, int i)
 {
 	if (data->num_of_ph == 1)
-		return (ft_one_ph(content, data, index));
+		return (ft_one_ph(content, data, i));
 	while (!data->someone_died)
 	{
-		if (index % 2)
-			lock_from_right_to_left(data, index);
+		if (i % 2)
+			ft_lock_right(data, i);
 		else
 			lock_from_left_to_right(data, index);
 		if (is_dead(content))
