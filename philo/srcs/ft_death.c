@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:20 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/27 16:09:59 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/27 19:32:18 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	ft_one_ph(void *content, t_data *data, int i)
 		}
 		if (ft_isdead(content))
 			return (ft_death(data, i));
-		usleep(100);
 	}
 }
 
@@ -70,7 +69,8 @@ int	ft_death(t_data *data, int index)
 	else
 	{
 		data->someone_died = 1;
-		printf("%.4li Philosopher %d has died\n", ft_time(), index + 1);
+		printf("%.4li Philosopher %d has died\n", ft_time() - \
+		data->start_time, index + 1);
 		pthread_mutex_unlock(&data->dead_mutex);
 	}
 	return (0);
@@ -83,7 +83,7 @@ int	ft_isdead(void *content)
 
 	data = ((t_content *)content)->data;
 	last_meal = ((t_content *)content)->last_meal;
-	if (ft_time() - last_meal > data->time_to_die)
+	if (ft_time() - last_meal - data->start_time > data->time_to_die)
 		return (1);
 	return (0);
 }

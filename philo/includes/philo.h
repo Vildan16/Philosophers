@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ameta <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:13:27 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/27 16:13:28 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/27 19:36:24 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ typedef struct s_data
 	int					num_of_eat;
 	int					someone_died;
 	int					*lock;
+	long				start_time;
 	pthread_t			*thread;
 	pthread_mutex_t		*fork;
 	pthread_mutex_t		dead_mutex;
+	pthread_mutex_t		print_mutex;
 }				t_data;
 
 typedef struct s_content
@@ -57,7 +59,7 @@ int			ft_error(char *error, t_data *data);
 int			ft_strlen(char *str);
 int			ft_atoi(const char *nptr);
 int			ft_isnum(char *num);
-int			ft_setdata(t_data *data, int ac, char **av);
+int			ft_setdata(t_data *data, int ac, char **av, int i);
 int			ft_threads(t_data *data);
 int			ft_waitfork(void *content, t_data *data, int i);
 void		*ft_life(void *content);

@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_setdata.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ameta <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:45 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/27 16:07:46 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/27 19:36:11 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	ft_setdata(t_data *data, int ac, char **av)
+int	ft_setdata(t_data *data, int ac, char **av, int i)
 {
-	int	i;
-
 	data->num_of_ph = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
@@ -31,12 +29,12 @@ int	ft_setdata(t_data *data, int ac, char **av)
 	data->lock = malloc(sizeof(int) * (data->num_of_ph));
 	if (!(data->lock))
 		return (0);
-	i = -1;
 	while (++i < data->num_of_ph)
 	{
 		if (pthread_mutex_init(&(data->fork[i]), NULL) != 0)
 			return (0);
 		data->lock[i] = -1;
 	}
+	pthread_mutex_init(&(data->print_mutex), NULL);
 	return (!(pthread_mutex_init(&(data->dead_mutex), NULL) != 0));
 }

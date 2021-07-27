@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_threads.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ameta <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:53 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/27 16:07:54 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/27 19:28:00 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_waitfork(void *content, t_data *data, int i)
 			return (ft_death(data, ((t_content *)content)->philo_id));
 		if (data->lock[i] == i && data->lock[(i + 1) % data->num_of_ph] == i)
 			return (!(data->someone_died));
-		usleep(100);
+		usleep(200);
 	}
 	return (0);
 }
@@ -51,7 +51,6 @@ void	*ft_life(void *content)
 		if (!ft_sleep(content, data, i))
 			break ;
 		ft_printstatus(data, i, "thinking");
-		usleep(1000);
 	}
 	ft_printstatus(data, i, "satisfied");
 	free(content);
@@ -88,7 +87,7 @@ int	ft_create_threads(t_data *data)
 			ft_error("Couldn't create threads\n", data);
 			return (0);
 		}
-		usleep(100);
+		usleep(10);
 	}
 	return (1);
 }

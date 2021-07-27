@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ameta <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:01 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/27 16:07:03 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/27 19:35:42 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_strlen(char *str)
 
 void	ft_init_data(t_data *data)
 {
+	data->start_time = ft_time();
 	data->num_of_ph = 0;
 	data->time_to_die = 0;
 	data->time_to_eat = 0;
@@ -76,11 +77,12 @@ int	main(int ac, char **av)
 	if (!(ac == 5 || ac == 6) || ft_check_input(av))
 		return (ft_error("Wrong arguments\n", NULL));
 	ft_init_data(&data);
-	if (!(ft_setdata(&data, ac, av) && ft_threads(&data)))
+	if (!(ft_setdata(&data, ac, av, -1) && ft_threads(&data)))
 		return (ft_error(NULL, &data));
 	i = -1;
 	while (++i < data.num_of_ph)
 		pthread_mutex_destroy(&(data.fork[i]));
+	pthread_mutex_destroy(&(data.print_mutex));
 	pthread_mutex_destroy(&(data.dead_mutex));
 	ft_error(NULL, &data);
 	return (0);

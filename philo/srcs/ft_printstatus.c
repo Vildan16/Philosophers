@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:37 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/27 16:08:12 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/27 19:34:55 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,30 @@
 
 long	ft_time(void)
 {
-	static time_t		start_sec = 0;
-	static suseconds_t	start_micro_sec = 0;
-	struct timeval		time;
+	struct timeval	current_time;
 
-	gettimeofday(&time, NULL);
-	if (!start_sec)
-	{
-		start_sec = time.tv_sec;
-		start_micro_sec = time.tv_usec;
-	}
-	return (((time.tv_sec - start_sec) * 1000)
-		+ (time.tv_usec - start_micro_sec) / 1000);
+	gettimeofday(&current_time, NULL);
+	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
 void	ft_printstatus(t_data *data, int i, char *message)
 {
-	pthread_mutex_lock(&data->dead_mutex);
+	long	time;
+
+	time = ft_time() - data->start_time;
+	pthread_mutex_lock(&data->print_mutex);
 	if (!data->someone_died)
 	{
 		if (!ft_strncmp(message, "satisfied", 10))
-			printf("%.4li %d is satisfied\n", ft_time(), i + 1);
+			printf("%.4li %d is satisfied\n", time, i + 1);
 		else if (!ft_strncmp(message, "sleeping", 10))
-			printf("%.4li %d is sleeping\n", ft_time(), i + 1);
+			printf("%.4li %d is sleeping\n", time, i + 1);
 		else if (!ft_strncmp(message, "thinking", 10))
-			printf("%.4li %d is thinking\n", ft_time(), i + 1);
+			printf("%.4li %d is thinking\n", time, i + 1);
 		else if (!ft_strncmp(message, "taken a fork", 20))
-			printf("%.4li %d has taken a fork\n", ft_time(), i + 1);
+			printf("%.4li %d has taken a fork\n", time, i + 1);
 		else if (!ft_strncmp(message, "eating", 10))
-			printf("%.4li %d is eating\n", ft_time(), i + 1);
-	}
-	pthread_mutex_unlock(&data->dead_mutex);
+			printf("%.4li %d is eating\n", time, i + 1);
+	}	
+	pthread_mutex_unlock(&data->print_mutex);
 }
