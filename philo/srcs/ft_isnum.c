@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_isnum.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/27 16:07:32 by ameta             #+#    #+#             */
+/*   Updated: 2021/07/27 16:09:14 by ameta            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	int				res;
 	unsigned char	*str1;
@@ -20,12 +32,11 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (res);
 }
 
-
-int		ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
-	int i;
-	int res;
-	int minus;
+	int	i;
+	int	res;
+	int	minus;
 
 	i = 0;
 	res = 0;
@@ -48,16 +59,16 @@ int		ft_atoi(const char *nptr)
 	return (res * minus);
 }
 
-static int		ft_isdigit(int c)
+static int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-int 	ft_isnum(char *num)
+int	ft_isnum(char *num)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!num)
@@ -72,5 +83,3 @@ int 	ft_isnum(char *num)
 	}
 	return (1);
 }
-
-

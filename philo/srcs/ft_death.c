@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_death.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/27 16:07:20 by ameta             #+#    #+#             */
+/*   Updated: 2021/07/27 16:09:59 by ameta            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philo.h"
 
 void	ft_lock_right(t_data *data, int index)
@@ -66,8 +78,8 @@ int	ft_death(t_data *data, int index)
 
 int	ft_isdead(void *content)
 {
-    long		last_meal;
-	t_data		*data;
+	long	last_meal;
+	t_data	*data;
 
 	data = ((t_content *)content)->data;
 	last_meal = ((t_content *)content)->last_meal;
