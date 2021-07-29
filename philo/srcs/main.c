@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:01 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/27 19:35:42 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/29 12:36:19 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	ft_strlen(char *str)
 
 void	ft_init_data(t_data *data)
 {
-	data->start_time = ft_time();
 	data->num_of_ph = 0;
 	data->time_to_die = 0;
 	data->time_to_eat = 0;

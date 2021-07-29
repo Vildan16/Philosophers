@@ -6,25 +6,26 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:37 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/27 19:34:55 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/29 14:22:57 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-long	ft_time(void)
+long	ft_time(struct timeval start_time)
 {
 	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
-	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
+	return ((current_time.tv_sec * 1000 + current_time.tv_usec / 1000) - \
+	(start_time.tv_sec * 1000 + start_time.tv_usec / 1000));
 }
 
 void	ft_printstatus(t_data *data, int i, char *message)
 {
 	long	time;
 
-	time = ft_time() - data->start_time;
+	time = ft_time(data->start_time);
 	pthread_mutex_lock(&data->print_mutex);
 	if (!data->someone_died)
 	{

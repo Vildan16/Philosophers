@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:13:27 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/27 19:36:24 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/29 12:11:31 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_data
 	int					num_of_eat;
 	int					someone_died;
 	int					*lock;
-	long				start_time;
+	struct timeval		start_time;
 	pthread_t			*thread;
 	pthread_mutex_t		*fork;
 	pthread_mutex_t		dead_mutex;
@@ -52,7 +52,7 @@ int			ft_eat(void *content, t_data *data, int i);
 int			ft_unlockfork(void *content, t_data *data, int i);
 int			ft_sleep(void *content, t_data *data, int i);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
-long		ft_time(void);
+long		ft_time(struct timeval start_time);
 void		ft_printstatus(t_data *data, int i, char *message);
 int			ft_check_input(char **av);
 int			ft_error(char *error, t_data *data);
