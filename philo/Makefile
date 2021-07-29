@@ -2,8 +2,8 @@ NAME = philo
 HEADER_FILE = philo.h
 INC_DIR = ./includes/
 SRC_DIR = ./srcs/
-CFLAGS = -Wall -Wextra -Werror -pthread
-CC = clang
+CFLAGS = -Wall -Wextra -Werror -pthread -O3
+CC = gcc
 SRC_FILES =			$(SRC_DIR)main.c \
 					$(SRC_DIR)ft_death.c \
 					$(SRC_DIR)ft_eat.c \
