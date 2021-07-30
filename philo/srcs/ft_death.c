@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:20 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/29 14:58:39 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/30 13:13:45 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,41 @@
 void	ft_lock_right(t_data *data, int i)
 {
 	pthread_mutex_lock(&(data->fork[(i + 1) % data->num_of_ph]));
-	pthread_mutex_lock(&(data->fork[i]));
-	if (data->lock[(i + 1) % data->num_of_ph] == -1
-		&& data->lock[i] == -1)
-	{	
+	if (data->lock[(i + 1) % data->num_of_ph] == -1)
+	{
 		data->lock[(i + 1) % data->num_of_ph] = i;
-		data->lock[i] = i;
-		ft_printstatus(data, i, "taken a fork");
-		ft_printstatus(data, i, "taken a fork");
+		pthread_mutex_lock(&(data->fork[i]));
+		if (data->lock[i] == -1)
+		{
+			data->lock[i] = i;
+			ft_printstatus(data, i, "taken a fork");
+			ft_printstatus(data, i, "taken a fork");
+		}
+		else
+			data->lock[(i + 1) % data->num_of_ph] = -1;
+		pthread_mutex_unlock(&(data->fork[i]));
 	}
 	pthread_mutex_unlock(&(data->fork[(i + 1) % data->num_of_ph]));
-	pthread_mutex_unlock(&(data->fork[i]));
 }
 
 void	ft_lock_left(t_data *data, int i)
 {
 	pthread_mutex_lock(&(data->fork[i]));
-	pthread_mutex_lock(&(data->fork[(i + 1) % data->num_of_ph]));
-	if (data->lock[i] == -1
-		&& data->lock[(i + 1) % data->num_of_ph] == -1)
-	{	
+	if (data->lock[i] == -1)
+	{
 		data->lock[i] = i;
-		data->lock[(i + 1) % data->num_of_ph] = i;
-		ft_printstatus(data, i, "taken a fork");
-		ft_printstatus(data, i, "taken a fork");
+		pthread_mutex_lock(&(data->fork[(i + 1) % data->num_of_ph]));
+		if (data->lock[(i + 1) % data->num_of_ph] == -1)
+		{
+			data->lock[(i + 1) % data->num_of_ph] = i;
+			ft_printstatus(data, i, "taken a fork");
+			ft_printstatus(data, i, "taken a fork");
+		}
+		else
+			data->lock[i] = -1;
+		pthread_mutex_unlock(&(data->fork[(i + 1) % data->num_of_ph]));
 	}
 	pthread_mutex_unlock(&(data->fork[i]));
-	pthread_mutex_unlock(&(data->fork[(i + 1) % data->num_of_ph]));
 }
 
 int	ft_one_ph(void *content, t_data *data, int i)
