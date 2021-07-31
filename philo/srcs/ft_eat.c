@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:25 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/29 15:05:28 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/31 16:27:07 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_eat(void *content, t_data *data, int i)
 			return (ft_death(data, i));
 		if (data->someone_died)
 			return (0);
-		usleep(100);
+		usleep(50);
 	}
 	return (1);
 }
@@ -54,7 +54,7 @@ int	ft_sleep(void *content, t_data *data, int i)
 	{
 		if (data->someone_died || ft_isdead(content))
 			return (ft_death(data, i + 1));
-		usleep(100);
+		usleep(50);
 	}
 	return (1);
 }

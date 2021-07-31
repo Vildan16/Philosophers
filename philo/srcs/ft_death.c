@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:20 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/30 13:13:45 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/31 16:31:24 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,12 @@ int	ft_death(t_data *data, int i)
 	}
 	else
 	{
+		pthread_mutex_lock(&data->print_mutex);
 		data->someone_died = 1;
 		printf("%.4li Philosopher %d has died\n", ft_time(data->start_time), \
 		i + 1);
 		pthread_mutex_unlock(&data->dead_mutex);
+		pthread_mutex_unlock(&data->print_mutex);
 	}
 	return (0);
 }

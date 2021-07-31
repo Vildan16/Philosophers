@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:13:27 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/29 12:11:31 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/31 12:09:38 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_data
 	int					num_of_eat;
 	int					someone_died;
 	int					*lock;
+	int					start_sim;
 	struct timeval		start_time;
 	pthread_t			*thread;
 	pthread_mutex_t		*fork;

@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:53 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/30 12:38:12 by ameta            ###   ########.fr       */
+/*   Updated: 2021/07/31 16:43:22 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,20 @@ void	*ft_life(void *content)
 
 	i = ((t_content *)content)->philo_id;
 	data = ((t_content *)content)->data;
+	while (data->start_sim != 1)
+		usleep(0);
 	gettimeofday(&data->start_time, NULL);
 	times_to_eat = data->num_of_eat;
 	while (times_to_eat--)
 	{
-		if (!ft_waitfork(content, data, i))
-			break ;
-		if (!ft_eat(content, data, i))
+		if (!ft_waitfork(content, data, i) || !ft_eat(content, data, i))
 			break ;
 		if (!ft_unlockfork(content, data, i))
 			break ;
 		if (!ft_sleep(content, data, i))
 			break ;
 		ft_printstatus(data, i, "thinking");
-		usleep(1000);
+		usleep(200);
 	}
 	ft_printstatus(data, i, "satisfied");
 	free(content);
@@ -77,6 +77,7 @@ int	ft_create_threads(t_data *data)
 	t_content	*content;
 	int			i;
 
+	data->start_sim = 0;
 	i = -1;
 	while (++i < data->num_of_ph)
 	{
@@ -89,8 +90,8 @@ int	ft_create_threads(t_data *data)
 			ft_error("Couldn't create threads\n", data);
 			return (0);
 		}
-		usleep(100);
 	}
+	data->start_sim = 1;
 	return (1);
 }
 
