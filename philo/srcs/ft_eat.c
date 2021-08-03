@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:25 by ameta             #+#    #+#             */
-/*   Updated: 2021/08/03 18:27:35 by ameta            ###   ########.fr       */
+/*   Updated: 2021/08/03 19:17:34 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 int	ft_waitforks(t_content *content)
 {
+	if (content->data->num_of_ph == 1)
+	{
+		pthread_mutex_lock(content->left_fork);
+		ft_printstatus(content->data, content->philo_id, "taken a fork");
+		return (1);
+	}
 	pthread_mutex_lock(content->left_fork);
-	pthread_mutex_lock(content->right_fork);
 	if (ft_printstatus(content->data, content->philo_id, "taken a fork"))
 		return (1);
+	pthread_mutex_lock(content->right_fork);
 	if (ft_printstatus(content->data, content->philo_id, "taken a fork"))
 		return (1);
 	return (0);
@@ -25,8 +31,8 @@ int	ft_waitforks(t_content *content)
 
 int	ft_eat(t_content *content)
 {
-	long start;
-	
+	long	start;
+
 	if (content->data->someone_died == 1)
 		return (1);
 	if (ft_printstatus(content->data, content->philo_id, "eating"))
@@ -41,8 +47,8 @@ int	ft_eat(t_content *content)
 
 int	ft_sleep(t_content *content)
 {
-	long start;
-	
+	long	start;
+
 	if (content->data->someone_died == 1)
 		return (1);
 	if (ft_printstatus(content->data, content->philo_id, "sleeping"))

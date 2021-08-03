@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:53 by ameta             #+#    #+#             */
-/*   Updated: 2021/08/03 18:31:34 by ameta            ###   ########.fr       */
+/*   Updated: 2021/08/03 19:20:17 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	*ft_life(void *content_)
 {
 	t_content	*content;
 	long		start;
-	
+
 	content = (t_content *)content_;
 	start = ft_time();
 	while (content->data->start_sim != 1)
@@ -77,9 +77,8 @@ void	*ft_life(void *content_)
 			return (NULL);
 		pthread_mutex_unlock(content->left_fork);
 		pthread_mutex_unlock(content->right_fork);
-		if (ft_sleep(content))
-			return (NULL);
-		if (ft_printstatus(content->data, content->philo_id, "thinking"))
+		if (ft_sleep(content) || ft_printstatus(content->data, \
+		content->philo_id, "thinking"))
 			return (NULL);
 		usleep(200);
 	}

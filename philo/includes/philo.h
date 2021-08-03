@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:13:27 by ameta             #+#    #+#             */
-/*   Updated: 2021/08/03 17:01:39 by ameta            ###   ########.fr       */
+/*   Updated: 2021/08/03 19:21:52 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,12 @@ typedef struct s_content
 	t_data				*data;
 }				t_content;
 
-void		ft_lock_right(t_data *data, int index);
-int			ft_one_ph(void *content, t_data *data, int i);
-void		ft_lock_left(t_data *data, int index);
 void		ft_init_data(t_data *data);
 int			ft_isdead(t_content *content, t_data *data, int i);
 int			ft_eat(t_content *content);
-int			ft_unlockfork(void *content, t_data *data, int i);
 int			ft_sleep(t_content *content);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
-long		ft_time();
+long		ft_time(void);
 int			ft_printstatus(t_data *data, int i, char *message);
 int			ft_check_input(char **av);
 int			ft_error(char *error);

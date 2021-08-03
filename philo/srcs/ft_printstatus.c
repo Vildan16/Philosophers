@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:37 by ameta             #+#    #+#             */
-/*   Updated: 2021/08/03 18:27:39 by ameta            ###   ########.fr       */
+/*   Updated: 2021/08/03 18:53:34 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int	ft_printstatus(t_data *data, int i, char *message)
 		printf("%.4li %d is sleeping\n", ft_time() - data->start_time, i);
 	else if (!ft_strncmp(message, "thinking", 10) && data->someone_died == 0)
 		printf("%.4li %d is thinking\n", ft_time() - data->start_time, i);
-	else if (!ft_strncmp(message, "taken a fork", 20) && data->someone_died == 0)
+	else if (!ft_strncmp(message, "taken a fork", 20) && data->someone_died \
+	== 0)
 		printf("%.4li %d has taken a fork\n", ft_time() - data->start_time, i);
 	else if (!ft_strncmp(message, "eating", 10) && data->someone_died == 0)
 		printf("%.4li %d is eating\n", ft_time() - data->start_time, i);
 	pthread_mutex_unlock(&data->print_mutex);
-
 	return (0);
 }

@@ -8,7 +8,6 @@ SRC_FILES =			$(SRC_DIR)main.c \
 					$(SRC_DIR)ft_eat.c \
 					$(SRC_DIR)ft_isnum.c \
 					$(SRC_DIR)ft_printstatus.c \
-					$(SRC_DIR)ft_setdata.c \
 					$(SRC_DIR)ft_threads.c
 
 OBJS = $(SRC_FILES:.c=.o)
