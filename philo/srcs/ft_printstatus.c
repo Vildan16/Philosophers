@@ -6,39 +6,44 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:37 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/31 15:35:39 by ameta            ###   ########.fr       */
+/*   Updated: 2021/08/03 18:27:39 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-long	ft_time(struct timeval start_time)
+long	ft_time(void)
 {
 	struct timeval	current_time;
 
 	gettimeofday(&current_time, NULL);
-	return ((current_time.tv_sec * 1000 + current_time.tv_usec / 1000) - \
-	(start_time.tv_sec * 1000 + start_time.tv_usec / 1000));
+	return ((current_time.tv_sec * 1000 + current_time.tv_usec / 1000));
 }
 
-void	ft_printstatus(t_data *data, int i, char *message)
+int	ft_printstatus(t_data *data, int i, char *message)
 {
-	long	time;
-
-	time = ft_time(data->start_time);
 	pthread_mutex_lock(&data->print_mutex);
-	if (!data->someone_died)
+	if (!ft_strncmp(message, "died", 5))
 	{
-		if (!ft_strncmp(message, "satisfied", 10))
-			printf("%.4li %d is satisfied\n", time, i + 1);
-		else if (!ft_strncmp(message, "sleeping", 10))
-			printf("%.4li %d is sleeping\n", time, i + 1);
-		else if (!ft_strncmp(message, "thinking", 10))
-			printf("%.4li %d is thinking\n", time, i + 1);
-		else if (!ft_strncmp(message, "taken a fork", 20))
-			printf("%.4li %d has taken a fork\n", time, i + 1);
-		else if (!ft_strncmp(message, "eating", 10))
-			printf("%.4li %d is eating\n", time, i + 1);
-	}	
+		printf("%.4li %d died\n", ft_time() - data->start_time, i);
+		return (1);
+	}
+	if (data->someone_died == 1 || data->all_eaten == data->num_of_eat)
+	{
+		pthread_mutex_unlock(&data->print_mutex);
+		return (1);
+	}
+	else if (!ft_strncmp(message, "satisfied", 10) && data->someone_died == 0)
+		printf("%.4li %d is satisfied\n", ft_time() - data->start_time, i);
+	else if (!ft_strncmp(message, "sleeping", 10) && data->someone_died == 0)
+		printf("%.4li %d is sleeping\n", ft_time() - data->start_time, i);
+	else if (!ft_strncmp(message, "thinking", 10) && data->someone_died == 0)
+		printf("%.4li %d is thinking\n", ft_time() - data->start_time, i);
+	else if (!ft_strncmp(message, "taken a fork", 20) && data->someone_died == 0)
+		printf("%.4li %d has taken a fork\n", ft_time() - data->start_time, i);
+	else if (!ft_strncmp(message, "eating", 10) && data->someone_died == 0)
+		printf("%.4li %d is eating\n", ft_time() - data->start_time, i);
 	pthread_mutex_unlock(&data->print_mutex);
+
+	return (0);
 }

@@ -5,7 +5,6 @@ SRC_DIR = ./srcs/
 CFLAGS = -Wall -Wextra -Werror -pthread -O3
 CC = gcc
 SRC_FILES =			$(SRC_DIR)main.c \
-					$(SRC_DIR)ft_death.c \
 					$(SRC_DIR)ft_eat.c \
 					$(SRC_DIR)ft_isnum.c \
 					$(SRC_DIR)ft_printstatus.c \

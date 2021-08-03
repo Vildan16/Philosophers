@@ -6,55 +6,49 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:25 by ameta             #+#    #+#             */
-/*   Updated: 2021/07/31 16:27:07 by ameta            ###   ########.fr       */
+/*   Updated: 2021/08/03 18:27:35 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-int	ft_eat(void *content, t_data *data, int i)
+int	ft_waitforks(t_content *content)
 {
-	long		time_start;
-
-	time_start = ft_time(data->start_time);
-	((t_content *)content)->last_meal = ft_time(data->start_time);
-	ft_printstatus(data, i, "eating");
-	while (ft_time(data->start_time) - time_start < data->time_to_eat)
-	{
-		if (ft_isdead(content))
-			return (ft_death(data, i));
-		if (data->someone_died)
-			return (0);
-		usleep(50);
-	}
-	return (1);
+	pthread_mutex_lock(content->left_fork);
+	pthread_mutex_lock(content->right_fork);
+	if (ft_printstatus(content->data, content->philo_id, "taken a fork"))
+		return (1);
+	if (ft_printstatus(content->data, content->philo_id, "taken a fork"))
+		return (1);
+	return (0);
 }
 
-int	ft_unlockfork(void *content, t_data *data, int i)
+int	ft_eat(t_content *content)
 {
-	(void)content;
-	pthread_mutex_lock(&(data->fork[i]));
-	pthread_mutex_lock(&(data->fork[(i + 1) % data->num_of_ph]));
-	data->lock[i] = -1;
-	data->lock[(i + 1) % data->num_of_ph] = -1;
-	pthread_mutex_unlock(&(data->fork[i]));
-	pthread_mutex_unlock(&(data->fork[(i + 1) % data->num_of_ph]));
-	if (data->someone_died)
-		return (0);
-	return (1);
+	long start;
+	
+	if (content->data->someone_died == 1)
+		return (1);
+	if (ft_printstatus(content->data, content->philo_id, "eating"))
+		return (1);
+	content->last_meal = ft_time() - content->data->start_time;
+	start = ft_time();
+	while (ft_time() - start < content->data->time_to_eat)
+		usleep(50);
+	content->eat_count++;
+	return (0);
 }
 
-int	ft_sleep(void *content, t_data *data, int i)
+int	ft_sleep(t_content *content)
 {
-	long	time_start;
-
-	time_start = ft_time(data->start_time);
-	ft_printstatus(data, i, "sleeping");
-	while (ft_time(data->start_time) - time_start < data->time_to_sleep)
-	{
-		if (data->someone_died || ft_isdead(content))
-			return (ft_death(data, i + 1));
+	long start;
+	
+	if (content->data->someone_died == 1)
+		return (1);
+	if (ft_printstatus(content->data, content->philo_id, "sleeping"))
+		return (1);
+	start = ft_time();
+	while (ft_time() - start < content->data->time_to_sleep)
 		usleep(50);
-	}
-	return (1);
+	return (0);
 }
