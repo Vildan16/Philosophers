@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:53 by ameta             #+#    #+#             */
-/*   Updated: 2021/08/03 19:20:17 by ameta            ###   ########.fr       */
+/*   Updated: 2021/08/03 19:31:21 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	*ft_life(void *content_)
 	content = (t_content *)content_;
 	start = ft_time();
 	while (content->data->start_sim != 1)
-		usleep(0);
+		usleep(1);
 	if (content->philo_id % 2 == 0)
 	{
 		while (ft_time() - start < content->data->time_to_eat)
@@ -105,6 +105,7 @@ void	ft_create_threads(t_data *data, t_content *content, pthread_t *thread)
 			content[i].left_fork = &data->mutex[0];
 		pthread_create(&thread[i], NULL, &ft_life, (void *)(&content[i]));
 		i++;
+		usleep(100);
 	}
 	data->start_sim = 1;
 	pthread_create(&thread[i], NULL, &monitor, (void *)(content));

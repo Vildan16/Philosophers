@@ -6,7 +6,7 @@
 /*   By: ameta <ameta@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 16:07:37 by ameta             #+#    #+#             */
-/*   Updated: 2021/08/03 18:53:34 by ameta            ###   ########.fr       */
+/*   Updated: 2021/08/03 19:32:52 by ameta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ long	ft_time(void)
 
 int	ft_printstatus(t_data *data, int i, char *message)
 {
+	usleep(100);
 	pthread_mutex_lock(&data->print_mutex);
 	if (!ft_strncmp(message, "died", 5))
 	{
